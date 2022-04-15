@@ -12,8 +12,8 @@ void read_haiku(int category){
     char arr[MAX];
     
     for(int i=0;i<3;i++){
-        read_queue(q,arr,category);    
-        printf("%s \n",arr);
+        read_queue(q,arr,category);   
+        printf("%s \n",arr); 
     }
 
     printf("HAIKUS ARE READ!\n");
@@ -30,7 +30,7 @@ void* haiku_thread(void* category){
 
 int main (int argc, char *argv []){
     
-    pthread_t tid [3] ; 
+    pthread_t tid [2] ; 
     
     int q=create_queue();
     
@@ -47,10 +47,6 @@ int main (int argc, char *argv []){
         // error ("pthread_create") ;
         puts("COULDNT CREATE");
     }
-    if (pthread_create (&tid [2], NULL, &haiku_thread, (void*) &cat2) == -1){
-        // error ("pthread_create") ;
-        puts("COULDNT CREATE");
-    }
 
     ///////////////// JOIN
     if (pthread_join (tid [0], NULL) == -1){
@@ -61,13 +57,7 @@ int main (int argc, char *argv []){
         // error ("pthread_join") ;
         puts("COULDNT JOIN");
     }
-    if (pthread_join (tid [2], NULL) == -1){
-        // error ("pthread_join") ;
-        puts("COULDNT JOIN");
-    }
-    int d;
-    scanf("%d",&d);
-    remove_queue(q);
-    printf("READER FINISHED!\n");
+
+
     
 }

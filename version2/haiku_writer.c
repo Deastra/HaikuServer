@@ -31,9 +31,6 @@ void write_haiku(int category){
         
         length = strlen(line);
         line[length - 1] = '\0';
-        printf("%s \n",line);
-        // printf("%d\n",j);
-        
         write_queue(q,line,category);
         j++;
     }
@@ -62,9 +59,7 @@ int main (int argc, char *argv []){
     pthread_t tid [3] ; 
     int cat1=1;
     int cat2=2;
-    // getHaikus(jap_haikus,cat1);
-    // getHaikus(west_haikus,cat2);
-    // int q=access_queue();
+
     ///////////////// CREATE
     if (pthread_create (&tid [0], NULL, &haiku_thread, (void*) &cat1) == -1){
         // error ("pthread_create") ;
@@ -74,12 +69,7 @@ int main (int argc, char *argv []){
         // error ("pthread_create") ;
         puts("COULDNT CREATE");
     }
-    if (pthread_create (&tid [2], NULL, &haiku_thread, (void*) &cat2) == -1){
-        // error ("pthread_create") ;
-        puts("COULDNT CREATE");
-    }
 
-    
 
     ///////////////// JOIN
     if (pthread_join (tid [0], NULL) == -1){
@@ -90,16 +80,6 @@ int main (int argc, char *argv []){
         // error ("pthread_join") ;
         puts("COULDNT JOIN");
     }
-    if (pthread_join (tid [2], NULL) == -1){
-        // error ("pthread_join") ;
-        puts("COULDNT JOIN");
-    }
-    // free(&tid[0]);
-    int d;
-    printf("aaaaaaa\n");
-    scanf("%d",&d); 
-    printf("kjshdfkjhs\n");
-    // free(&tid[1]);
-    // remove_queue(q);
+
 
 }

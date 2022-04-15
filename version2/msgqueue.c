@@ -59,9 +59,7 @@ void write_queue ( int id , char h_arr[], int priority){
     message m ; int r ;
     m.mtype = priority ;
     strcpy(m.arr,h_arr);
-    printf("before\n");
     r = msgsnd (id , &m, sizeof m - sizeof m.mtype , 0) ;
-    printf("after\n");
     if (r == -1) {send_error (" msgsnd ") ;}
     
 }
@@ -82,14 +80,3 @@ void remove_queue ( int id )
     int r ;
     r = msgctl (id , IPC_RMID , NULL ) ;
 }
-
-// void send(int prior,int size){
-//     int queue_id=access_queue();
-//     write_queue(queue_id,size,prior);
-// }
-
-// int get(int prior){
-//     int queue_id=access_queue();
-//     int signum=read_queue(queue_id,prior);
-//     return signum;
-// }
