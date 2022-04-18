@@ -1,9 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include "msgqueue.c"
+#include "haiku_reader.h"
 
+int main(){
+    if (haiku_reader()==-1){
+        printf("Reader couldn't be executed!\n");
+    }
+    return 0;
+}
 
 void read_haiku(int category){
     
@@ -13,51 +15,45 @@ void read_haiku(int category){
     
     for(int i=0;i<3;i++){
         read_queue(q,arr,category);   
-        printf("%s \n",arr); 
+        printf("category:: %d\n%d) %s \n",category,i,arr); 
     }
 
-    printf("HAIKUS ARE READ!\n");
+    printf("HAIKUS WERE READ!\n");
     printf("################\n");
     
 }
 
-void* haiku_thread(void* category){
+void* haiku_read_thread(void* category){
     int *cat=(int*)category;
     read_haiku(*cat);
     pthread_exit(NULL);
 }
 
-
-int main (int argc, char *argv []){
+int haiku_reader (){
     
     pthread_t tid [2] ; 
     
     int q=create_queue();
     
-    int cat1=1;
-    int cat2=2;
-
-
     /////////////// CREATE
-    if (pthread_create (&tid [0], NULL, &haiku_thread, (void*) &cat1) == -1){
-        // error ("pthread_create") ;
-        puts("COULDNT CREATE");
-    }
-    if (pthread_create (&tid [1], NULL, &haiku_thread, (void*) &cat2) == -1){
-        // error ("pthread_create") ;
-        puts("COULDNT CREATE");
+    for(int i=0;i<2;i++){
+        if (pthread_create (&tid [i], NULL, &haiku_read_thread, (void*) &(cat_arr[i])) == -1){
+            // error ("pthread_create") ;
+            puts("COULDNT CREATE");
+            return -1;
+        }
     }
 
     ///////////////// JOIN
-    if (pthread_join (tid [0], NULL) == -1){
-        // error ("pthread_join") ;
-        puts("COULDNT JOIN");
-    }    
-    if (pthread_join (tid [1], NULL) == -1){
-        // error ("pthread_join") ;
-        puts("COULDNT JOIN");
-    }
+    for(int i=0;i<2;i++){
+        if (pthread_join (tid [i], NULL) == -1){
+            // error ("pthread_join") ;
+            puts("COULDNT JOIN");
+            return -1;
+        }  
+    } 
 
+    remove_queue(q);
+    return 1;
 
-    
 }
