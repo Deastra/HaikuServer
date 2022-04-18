@@ -7,6 +7,5 @@
 int main(){
     int q=access_queue();
     remove_queue(q);
-
 }
 
