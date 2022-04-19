@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <pthread.h>
 #include "msgqueue.c"
-#include <time.h>
 
 #define JAP 6
 #define WEST 9

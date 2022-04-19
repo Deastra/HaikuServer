@@ -1,3 +1,6 @@
+#ifndef MSG
+#define MSG
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -80,3 +83,5 @@ void remove_queue ( int id )
     int r ;
     r = msgctl (id , IPC_RMID , NULL ) ;
 }
+
+#endif
