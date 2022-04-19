@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
+#include <time.h>
 #include "shdmemory.c"
 
-int flag=1;
+int flag=10;
 int proc;
 void signal_handler(int signum){
-    flag=0;
+    flag--;
+    printf("Signal %d:: ",flag);
     if(signum==2){
         printf("SIGINT\n");
         kill(proc,2);
@@ -16,25 +18,30 @@ void signal_handler(int signum){
         kill(proc,3);
     }else{
         printf("Invalid Signal!\n");
-        flag=1;
     }
 }
 
 int main(){
+    
+    int p=getpid();
+    printf("Process:: %d\n\n",p); 
 
     int seg=access_segment();
     read_values(seg,&proc);
+    srand(time(NULL));
 
     if (signal(SIGQUIT, signal_handler) == SIG_ERR){
         perror("can't catch SIGQUIT\n");}
     if (signal(SIGINT, signal_handler) == SIG_ERR){
         perror("can't catch SIGINT\n");}
 
+    int signum=0;
 
     while(flag){
-        sleep(2);
-        printf("waiting signal for process %d ...\n",proc);
+        sleep(1);
+        signum=rand()%2+2;
+        signal_handler(signum);
     }
-    kill(proc,9);
+    
     printf("END of CLIENT\n");
 }
