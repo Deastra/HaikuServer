@@ -63,7 +63,7 @@ void write_queue ( int id , char h_arr[], int priority){
     m.mtype = priority ;
     strcpy(m.arr,h_arr);
     r = msgsnd (id , &m, sizeof m - sizeof m.mtype , 0) ;
-    if (r == -1) {send_error (" msgsnd ") ;}
+    // if (r == -1) {send_error (" msgsnd ") ;}
     
 }
 

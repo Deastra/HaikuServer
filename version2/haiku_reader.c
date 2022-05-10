@@ -10,7 +10,7 @@ int main(){
 void read_haiku(int category){
     
     int q=access_queue();
-    puts("IN FUNCTION READER\n");
+    printf("IN FUNCTION READER for category %d\n",category);
     char arr[MAX];
     
     for(int i=0;i<3;i++){
@@ -18,7 +18,7 @@ void read_haiku(int category){
         printf("category:: %d\n%d) %s \n",category,i,arr); 
     }
 
-    printf("HAIKUS WERE READ!\n");
+    printf("Hakius were read for category %d !\n",category);
     printf("################\n");
     
 }

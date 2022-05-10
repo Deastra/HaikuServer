@@ -34,6 +34,7 @@ void write_haiku(int category){
     }
 
     fclose(file);
+    printf("Haikus of type %d are written!\n",category);
     // return NULL;
 }
 
@@ -66,6 +67,7 @@ int haiku_writer (){
             return -1;
         }   
     }
+
     return 1;
 
 }
