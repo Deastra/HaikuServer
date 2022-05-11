@@ -1,11 +1,11 @@
 #include "haiku_reader.h"
 
-int main(){
-    if (haiku_reader()==-1){
-        printf("Reader couldn't be executed!\n");
-    }
-    return 0;
-}
+// int main(){
+//     if (haiku_reader()==-1){
+//         printf("Reader couldn't be executed!\n");
+//     }
+//     return 0;
+// }
 
 void read_haiku(int category){
     
@@ -27,6 +27,7 @@ void* haiku_read_thread(void* category){
     int *cat=(int*)category;
     read_haiku(*cat);
     pthread_exit(NULL);
+    
 }
 
 int haiku_reader (){

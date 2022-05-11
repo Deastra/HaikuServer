@@ -13,7 +13,7 @@ typedef struct message
   char arr[MAX];
 } message;
 
-void send_error(char *str){
+void send_qerror(char *str){
     if (strcmp(str," ftok ")==0){
         printf("FTOK\n");
     }else if(strcmp(str," msgget ")==0){
@@ -37,10 +37,10 @@ int access_queue ( void )
     int id ;
     k = ftok ("/etc/passwd", 'A') ;
     if (k == -1){
-        send_error (" ftok ") ;}
+        send_qerror (" ftok ") ;}
     id = msgget (k, 0) ;
     if (id == -1){
-        send_error (" msgget ") ;}
+        send_qerror (" msgget ") ;}
     return id ;
 }
 
@@ -49,11 +49,11 @@ int create_queue ( void ){
     int id ;
     k = ftok ("/etc/passwd", 'A') ;
     if (k == -1){
-        send_error (" ftok ") ;}
+        send_qerror (" ftok ") ;}
     id = msgget (k, IPC_CREAT | 0666) ;
     if (id == -1){
         printf("id_error\n");
-        send_error (" msgget ") ;}
+        send_qerror (" msgget ") ;}
 
     return id ;
 }
@@ -63,7 +63,7 @@ void write_queue ( int id , char h_arr[], int priority){
     m.mtype = priority ;
     strcpy(m.arr,h_arr);
     r = msgsnd (id , &m, sizeof m - sizeof m.mtype , 0) ;
-    // if (r == -1) {send_error (" msgsnd ") ;}
+    if (r == -1) {send_error (" msgsnd ") ;}
     
 }
 
@@ -73,7 +73,7 @@ void read_queue ( int id,char arr[],int priority)
 
     r = msgrcv (id , &m, sizeof m - sizeof m.mtype , priority, 0) ;
     if (r == -1){
-        send_error (" msgrcv ") ;
+        send_qerror (" msgrcv ") ;
     }
     strcpy(arr,m.arr);    
 }

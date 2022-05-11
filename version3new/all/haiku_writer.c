@@ -1,11 +1,11 @@
 #include "haiku_writer.h"
 
-int main(){
-    if (haiku_writer()==-1){
-        printf("Reader couldn't be executed!\n");
-    }
-    return 0;
-}
+// int main(){
+//     if (haiku_writer()==-1){
+//         printf("Reader couldn't be executed!\n");
+//     }
+//     return 0;
+// }
 
 void write_haiku(int category){
     
@@ -34,7 +34,6 @@ void write_haiku(int category){
     }
 
     fclose(file);
-    printf("Haikus of type %d are written!\n",category);
     // return NULL;
 }
 
@@ -67,7 +66,6 @@ int haiku_writer (){
             return -1;
         }   
     }
-
     return 1;
 
 }

@@ -1,11 +1,11 @@
 #include "haiku_writer.h"
 
-int main(){
-    if (haiku_writer()==-1){
-        printf("Reader couldn't be executed!\n");
-    }
-    return 0;
-}
+// int main(){
+//     if (haiku_writer()==-1){
+//         printf("Reader couldn't be executed!\n");
+//     }
+//     return 0;
+// }
 
 void write_haiku(int category){
     
