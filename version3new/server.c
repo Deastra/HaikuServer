@@ -7,7 +7,7 @@
 #include <signal.h>
 #include <pthread.h>
 #define JAP 1
-#define WEST 2
+#define WEST 2 
 
 // getsignal
 // choose category

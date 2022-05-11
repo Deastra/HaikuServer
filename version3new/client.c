@@ -7,7 +7,7 @@
 #include <time.h>
 #include <unistd.h>
 // #include "all/haiku_reader.h"
-#define MAX 255
+#define MAX 255 
 #define JAP 1
 #define WEST 2
 int flag=10;
