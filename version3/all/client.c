@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <signal.h>
+#include <unistd.h>
 #include <time.h>
 #include "shdmemory.c"
 
@@ -19,8 +19,7 @@ void signal_handler(int signum){
     }
 }
 
-// main
-int client(){
+int main(){
     
     int p=getpid();
     printf("Process:: %d\n\n",p); 
@@ -38,5 +37,4 @@ int client(){
     }
     
     printf("END of CLIENT\n");
-    return 0;
 }

@@ -19,8 +19,8 @@ void signal_handler(int signum){
     }
     printf("Incorrect Signal!\n");
 }
-
-int main(){
+// main
+int server(){
     int p=getpid();
     int seg=create_segment();
     write_values(seg,p);
