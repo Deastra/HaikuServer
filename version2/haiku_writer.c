@@ -11,14 +11,12 @@ void write_haiku(int category){
     
     int q=access_queue();
     char fileName[MAX];
-    int count;
+    int count=0;
     
-    if (category==CJAP){
+    if (category==JAP){
         strcpy(fileName, "japanese.txt");
-        count=JAP;
     }else{
         strcpy(fileName, "western.txt");
-        count=WEST;
     }
 
     FILE* file = fopen(fileName, "r"); 
@@ -27,10 +25,12 @@ void write_haiku(int category){
     int length=0;
 
     while(fgets(line, sizeof(line), file)!=NULL) {
-        
+        count++;
         length = strlen(line);
         line[length - 1] = '\0';
         write_queue(q,line,category);
+        printf("%d) %s\n",count,line);
+
     }
 
     fclose(file);
@@ -48,7 +48,6 @@ void* haiku_write_thread(void* category){
 int haiku_writer (){
     
     pthread_t tid [2] ; 
-    int cat1=1,cat2=2;
 
     ///////////////// CREATE
     for(int i=0;i<2;i++){

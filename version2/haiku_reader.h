@@ -8,11 +8,11 @@
 #include "msgqueue.c"
 
 // categories
-#define CJAP 1
-#define CWEST 2
+#define JAP 1
+#define WEST 2
 
 //array of categories
-int cat_arr[2]={CWEST,CJAP};
+int cat_arr[2]={JAP,WEST};
 
 void read_haiku(int category);
 void* haiku_read_thread(void* category);

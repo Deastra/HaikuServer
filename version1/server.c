@@ -6,8 +6,10 @@
 #define JAP 1
 #define WEST 2
 
-int flag=10;
+
 int matr[2][2]={ {2,JAP} , {3,WEST} };
+
+int flag=100;
 void signal_handler(int signum){
 
     for (int i=0;i<2;i++){

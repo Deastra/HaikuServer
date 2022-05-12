@@ -7,12 +7,10 @@
 #include <pthread.h>
 #include "msgqueue.c"
 
-#define JAP 6
-#define WEST 9
+#define JAP 1
+#define WEST 2
 
-#define CJAP 1
-#define CWEST 2
-int cat_arr[2]={CWEST,CJAP};
+int cat_arr[2]={JAP,WEST};
 
 void write_haiku(int category);
 void* haiku_write_thread(void* category);
