@@ -11,11 +11,9 @@
 #define WEST 2
 #define MAX 255
 \
-int flag=0;
+int flag=1;
 int matr[2][2]={ {2,JAP} , {3,WEST} };
 int n_haiku[2];
-
-
 
 void write_haiku(int category){ 
     
@@ -26,10 +24,8 @@ void write_haiku(int category){
     
     if (category==JAP){
         strcpy(fileName, "all/japanese.txt");
-        // count=JAP;
     }else{
         strcpy(fileName, "all/western.txt");
-        // count=WEST;
     }
 
     FILE* file = fopen(fileName, "r"); 
@@ -44,13 +40,11 @@ void write_haiku(int category){
         count++;
         printf("writing haiku of cat %d :: %d)- %s\n",category,count,line);
         n_haiku[category-1]++;
-        
     }
 
     fclose(file);
-    // printf("Haikus of type %d are written!\n",category);
-    // 
-    // return NULL;
+    printf("Haikus of type %d are written!\n",category);
+
 }
 
 void* writer_thread(void* category){
@@ -73,7 +67,7 @@ void* reader_thread(void* category){
 
     int *cat=(int*)category;
     int q_id=access_queue();
-    // printf("category reader:: %d\n",*cat);
+    
     char haiku[MAX];
     
     read_queue(q_id,haiku,*cat);
@@ -108,8 +102,6 @@ void add_thread(int category){
             return;
         }   
     }
-
-
     return;
  
 }
@@ -134,11 +126,9 @@ void main_signal_handler(int signum){
 
 
 int main(){
-
-
     int p=getpid();
-    // int seg=create_segment();
-    // write_values(seg,p);
+    int seg=create_segment();
+    write_values(seg,p);
     
     int q_id=create_queue();
     n_haiku[0]=0;
@@ -152,14 +142,13 @@ int main(){
     if (signal(SIGTSTP, main_signal_handler) == SIG_ERR){
         perror("can't catch SIGINT\n");}
 
-    while(flag<20){
+    while(flag){
         sleep(1);
         printf("waiting %d...\n",flag);
-        // flag--;
     }
-    // remove_segment(seg);
 
+    remove_segment(seg);
     remove_queue(q_id);
-    puts("end of server");
+    puts("End of Server");
     return 0;
 }
