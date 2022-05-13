@@ -10,16 +10,17 @@
 int matr[2][2]={ {2,JAP} , {3,WEST} };
 
 int flag=100;
-void signal_handler(int signum){
+int signal_handler(int signum){
 
     for (int i=0;i<2;i++){
         if(signum==matr[i][0]){
             flag--;
             printf("Category is %d\n",matr[i][1]);
-            return;
+            return matr[i][1];
         }
     }
     printf("Incorrect Signal!\n");
+    return 0;
 }
 
 int main(){

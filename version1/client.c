@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 #include "shdmemory.c"
+#include "client.h"
 
 int flag=10;
 int proc;
