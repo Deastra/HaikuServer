@@ -1,15 +1,46 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "all/shdmemory.c"
-#include "all/msgqueue.c"
-#include <signal.h>
-#include <time.h>
-#include <unistd.h>
-
+#include "client.h"
+#include "shdmemory.h"
+#include "msgqueue.h"
 
 int flag=20;
 int proc;
+
+int main(){
+    if(client(client())==-1){
+        puts(" ----- Client Error ----- \n");
+    }
+}
+
+int client(){
+    
+    int p=getpid();
+    printf("Process:: %d\n\n",p); 
+    
+    int seg=access_segment();
+    read_values(seg,&proc);
+    srand(time(NULL));
+
+    if (signal(SIGQUIT, signal_handler) == SIG_ERR){
+        perror("can't catch SIGQUIT\n"); return -1;}
+    if (signal(SIGINT, signal_handler) == SIG_ERR){
+        perror("can't catch SIGINT\n"); return -1;}
+    if (signal(SIGTSTP, signal_handler) == SIG_ERR){
+        perror("can't catch SIGINT\n"); return -1;}
+
+
+    int signum=0;
+
+    while(flag){
+        sleep(1);
+        printf("Signal %d:: ",flag);
+        signum=rand()%2+2;
+        signal_handler(signum);
+    }
+    
+    printf("END of CLIENT\n");
+    return 1;
+}
+
 
 void signal_handler(int signum){
     flag--;
@@ -25,33 +56,4 @@ void signal_handler(int signum){
             kill(proc,3);
         }
     }
-}
-
-int main(){
-    
-    int p=getpid();
-    printf("Process:: %d\n\n",p); 
-    
-    int seg=access_segment();
-    read_values(seg,&proc);
-    srand(time(NULL));
-
-    if (signal(SIGQUIT, signal_handler) == SIG_ERR){
-        perror("can't catch SIGQUIT\n");}
-    if (signal(SIGINT, signal_handler) == SIG_ERR){
-        perror("can't catch SIGINT\n");}
-    if (signal(SIGTSTP, signal_handler) == SIG_ERR){
-        perror("can't catch SIGINT\n");}
-
-
-    int signum=0;
-
-    while(flag){
-        sleep(1);
-        printf("Signal %d:: ",flag);
-        signum=rand()%2+2;
-        signal_handler(signum);
-    }
-    
-    printf("END of CLIENT\n");
 }
