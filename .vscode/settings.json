@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "signal.h": "c",
-        "haiku_writer.h": "c"
-    }
-}
