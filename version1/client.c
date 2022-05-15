@@ -5,7 +5,7 @@
 #include <time.h>
 #include "shdmemory.c"
 
-int flag=100
+int flag=100;
 int proc;
 void signal_handler(int signum){
     flag--;
