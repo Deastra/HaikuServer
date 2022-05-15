@@ -28,3 +28,11 @@ Two seperate terminals :
 ``` make read ```
 * Second terminal:  
 ``` make write ```
+
+
+#### Version 3
+Two seperate terminals :
+* First terminal :  
+``` make server ```
+* Second terminal:  
+``` make client ```
